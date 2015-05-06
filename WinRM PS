@@ -1,0 +1,15 @@
+/*
+ *
+ To make winrm session open, we need the following command line
+ <powershell> Set-NetFirewallRule -Name WINRM-HTTP-In-TCP-PUBLIC -RemoteAddress Any </powershell>'
+*/
+
+// Code to set up the winrm session
+$administratorName = 'aDM1nsTRat0r'
+$password = 'P@ssW0Rd'
+$securepassword = convertto-securestring $password -asplaintext -force
+$creds = new-object System.Management.Automation.PSCredential ($administratorName,$securepassword)
+$s = new-pssession $publicIp -credential $creds 
+Invoke-Command -Session $s -ScriptBlock {
+  // Put your commands to run remotely here
+}
